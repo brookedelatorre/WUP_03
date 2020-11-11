@@ -15,7 +15,10 @@ require(tigerstats)
 davisdata <- read.csv(file="UCDavis.csv")
 ```
 ## Our Goal is to answer this question Is there a difference between the alcohol consumed between the row
-## you choose to sit in??
+## you choose to sit in??   
+$_H0$:There is no difference in the average mean alcohol consumption based on seating location   
+$_Ha$:There is a difference in the average mean alcohol consumption based on seating location    
+    
 
 ## Now with ggplot - first select the basic data
 
@@ -43,6 +46,16 @@ favstats(alcohol~Seat,data=davisdata)
 
 ## Inferential Tests
 
+```{r}
+model1 <- aov(alcohol~Seat,data=davisdata)
+summary.aov(model1)
+```
+The P value is 0.00011 < 0.05 so we reject the null hypothesis
+```{r}
+plot(TukeyHSD(model1))
+```
+
 ## Conclusions
+There is a difference between alcohol consumption and seating from front-back, there is a difference in consumption from middle-back, There is no difference in consumption and seating for middle-front.
 
-
+There is no correlation between seating arrangement and alcohol consumption when it comes to middle-front. there is a correlation when seating is front-back and middle-back.
